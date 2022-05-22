@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>detail page</h1>
+    <h2>{{product.name}}</h2>
+    <h4>{{product.pub_date}}</h4>
+    <h3>{{product.keyword}}</h3>
+    {% if product.image %}
+        <p><img src="{{product.image.url}} alt="사진"></p>
+    {% endif %}
+    <p>{{product.discription}}</p>
+
+    <a href="{%url 'edit' product.id %}">수정하기</a>
+    <a href="{%url 'delete' product.id %}">삭제하기</a>
+
+{% endblock %}

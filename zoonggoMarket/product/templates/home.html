@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>homepage</h1>
+    <h2><a href="{%url 'new'%}">상품등록</a></h2>
+    <h2>상품목록</h2>
+    <div>
+        {% for product in products %}
+        <div>
+            <h3>{{product.name}}</h3>
+            <p>{{product.keyword}}</p>
+            <a href="{%url 'detail' product.id %}">more</a>
+        </div>
+        {%endfor%}
+    </div>
+{% endblock %}
