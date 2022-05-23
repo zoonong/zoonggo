@@ -13,10 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from xml.etree.ElementInclude import include
 from django import views
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from product import views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,11 +23,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.homepage, name="homepage"),
-    path('<int:id>',views.detail, name="detail"),
+    path('<int:product_id>',views.detail, name="detail"),
     path('new/', views.new, name="new"),
     path('create/', views.create, name="create"),
-    path('edit/<int:id>', views.edit, name="edit"),
-    path('update/<int:id>', views.update, name="update"),
-    path('delete/<int:id>',views.delete, name="delete"),
+    path('edit/<int:product_id>', views.edit, name="edit"),
+    path('update/<int:product_id>', views.update, name="update"),
+    path('delete/<int:product_id>',views.delete, name="delete"),
     path('accounts/',include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
