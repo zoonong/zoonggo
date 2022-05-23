@@ -1,6 +1,7 @@
-from itertools import product
 from django.shortcuts import redirect, render,get_object_or_404
 from .models import Product
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 def homepage(request):
@@ -43,3 +44,14 @@ def delete(request, product_id):
     delete_product = Product.objects.get(pk=product_id)
     delete_product.delete()
     return redirect('homepage')
+
+def follow(request, product_id, user_id):
+    user = request.user
+    followed_user = get_object_or_404(User, pk=user_id)
+    is_follower = user.profile in followed_user.profile.followers.all()
+    if is_follower:
+        user.profile.followings.remove(followed_user.profile)
+    else:
+        user.profile.followings.add(followed_user.profile)
+    return redirect('detail', product_id)
+    

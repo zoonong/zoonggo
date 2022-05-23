@@ -4,6 +4,14 @@
 {% block content %}
     <h1>detail page</h1>
     <h2>{{product.name}}</h2>
+    <h3>{{product.writer}}</h3>
+    {% if request.user != product.writer %}
+        {% if request.user.profile in product.writer.profile.followers.all %}
+            <a href="{%url 'follow' product.id product.writer.id%}">언팔로우</a>
+        {% else %}
+            <a href="{%url 'follow' product.id product.writer.id%}">팔로우</a>
+        {% endif %}
+    {% endif %}
     <h4>{{product.pub_date}}</h4>
     <h3>{{product.keyword}}</h3>
     {% if product.image %}

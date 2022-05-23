@@ -30,4 +30,5 @@ urlpatterns = [
     path('update/<int:product_id>', views.update, name="update"),
     path('delete/<int:product_id>',views.delete, name="delete"),
     path('accounts/',include('allauth.urls')),
+    path('follow/<int:product_id>/<int:user_id>', views.follow, name="follow"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
