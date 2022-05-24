@@ -2,22 +2,43 @@
 {% load static %}
 
 {% block content %}
-    <h1>homepage</h1>
-    {% if user.is_authenticated %}
-        <h2><a href="{%url 'new'%}">상품등록</a></h2>
-    {% else %}
-        <h2>로그인 후 상품을 등록할 수 있습니다.</h2>
-    {% endif %}
-    
-    <h2>상품목록</h2>
-    <div>
-        {% for product in products %}
-        <div>
-            <h3>{{product.name}}</h3>
-            <p>{{product.keyword}}</p>
-            <p>{{product.writer}}</p>
-            <a href="{%url 'detail' product.id %}">more</a>
-        </div>
-        {%endfor%}
+  
+    <h2 style="margin-top: 30px; margin-left: 20px;">최신상품목록</h2>
+    <br>
+    <div class="row">
+        {% if products %}
+            {% for product in products %}
+                <div class="card shadows" style="width: 18rem; height: 29rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem; border-style: solid; border-color: black; border-radius: 12px;">
+                    <div style="width:17rem; height:20rem; align-items: center; margin-top: 20px; object-fit: cover;">
+                        <a href="{%url 'detail' product.id %}">
+                            {% if product.image %}
+                                <div style="width:16rem; height: 14rem; position: relative; align-items: center;">
+                                    <img src="{{product.image.url}}" class="card-img-top" alt="..." style="position: absolute; width: 100%; height: 100%;  margin-left: 8px; margin-top: -2px; ">
+                                    <button style="background-color : black; position: absolute; margin-top : 5px; margin-left: 172px; color:white; border-radius: 12px; width:85px">판매중</button>
+                                </div>
+                            {% else %}
+                                <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="card-body" style="width: 17rem;">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title"><b>상품명 : {{product.name}}</b></h5>
+                                <h5 class="card-title"><b>키워드 : {{product.keyword}}</b></h5>
+                                <h5 class="card-title"><b>작성자 : {{product.writer}}</b></h5>
+                            </div>
+                        </div>
+                    <hr>
+                    
+                    <a href="{%url 'detail' product.id %}" class="btn btn-light" style = "font-weight: bold; border-radius: 12px; border: 2px ridge #BABABA; margin: auto; display:block;" >상세 페이지 이동</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3 style="text-align: center;"> 판매중인 상품이 없습니다. </h3>    
+        {% endif %}
     </div>
+
+    
 {% endblock %}
