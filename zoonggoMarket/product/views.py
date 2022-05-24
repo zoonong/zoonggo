@@ -54,4 +54,14 @@ def follow(request, product_id, user_id):
     else:
         user.profile.followings.add(followed_user.profile)
     return redirect('detail', product_id)
-    
+
+def followingProduct(request):
+    user = request.user
+    followings = user.profile.followings.all()
+    productList = []
+    for following in followings:
+        products = Product.objects.filter(writer = following.user)
+        list_of_product = products[::1]
+        productList.append(list_of_product)
+    productLists = sum(productList, [])
+    return render(request, 'followingProduct.html', {'products':productLists})
