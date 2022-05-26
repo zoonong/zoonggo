@@ -2,14 +2,38 @@
 {% load static %}
 
 {% block content %}
-<h2>상품 등록하기</h2>
-<form action="{%url 'create'%}" method="post" enctype="multipart/form-data">
-	{%csrf_token%}
-	<p>상품명 : <input type="text" name="name"></p>
-	<p>키워드 : <input type="text" name="keyword"></p>
-    <p>사진 : <input type="file" name="image" onchange="filecheck(this)"></p>
-	<p>내용 : <textarea type="text" name="discription" id="" cols="30" rows="10"></textarea></p>
-	<button type="submit">제출</button>
-</form>
-
+<br>
+<br>
+<div class="row justify-content-around">
+  <div class="card border-dark mb-3" style="max-width: 25rem; border-radius: 20px;">
+    <div style="margin-top: 20px;">
+      <h3 style="font-weight: bold; margin-left: 130px;">상품 등록</h3>
+    </div>
+    <div class="card-body" style= " display:flex;">
+      <form action="{%url 'create'%}" method="post" enctype="multipart/form-data">
+        {%csrf_token%}
+        <p style="font-weight: bold;">상품명</p>
+        <input type="text" name="name" value="{{product.name}}" style="width: 350px;">
+        <p style="margin-top: 20px; font-weight: bold;">키워드</p>
+        <input type="text" name="keyword" value="{{product.keyword}}" style="width: 350px;">
+        <p style="margin-top: 20px; font-weight: bold;">상품 설명</p>
+        <textarea type="text" name="discription" id="" cols="44" rows="5">{{product.discription}}</textarea>
+        {% if product.detailImage %}
+        <p>{{product.detailImage_name}}</p>
+        {% endif %}
+        <div>
+          <p style="margin-top: 20px; font-weight: bold;">상품 사진</p>
+          {% if product.image %}
+          <p>{{product.image_name}}</p>
+          {% endif %}
+          <input type="file" name="image" onchange="filecheck(this)">
+        </div>
+        <div style="display: center; width:100%; text-align:cetner;">
+          <button type="submit" class="btn btn-dark" style="margin-top: 20px; margin-left: 105px; font-weight: bold; border-radius: 20px; width: 140px; font-size: larger;">상품등록</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
