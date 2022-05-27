@@ -76,3 +76,14 @@ def followingProduct(request):
         productList.append(list_of_product)
     productLists = sum(productList, [])
     return render(request, 'followingProduct.html', {'products':productLists})
+
+def search(request):
+    products = Product.objects.all().order_by('-pub_date')
+    word = request.POST.get('word', "")
+
+    if word:
+        products = products.filter(keyword__icontains=word)
+        return render(request, 'search.html', {'products' : products, 'word':word})
+
+    else:
+        return render(request, 'search.html')

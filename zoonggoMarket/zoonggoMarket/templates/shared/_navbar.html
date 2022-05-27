@@ -5,9 +5,11 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="키워드 검색" aria-label="Search">
+      <form class="d-flex" role="search" action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="키워드 검색" aria-label="Search" name="word" value="{{word}}">
         <button class="btn btn-outline-light" type="submit" style="font-weight: bold;">Search</button>
       </form>
     </div>
