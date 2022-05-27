@@ -45,6 +45,17 @@ def delete(request, product_id):
     delete_product.delete()
     return redirect('homepage')
 
+def onsale(request, product_id):
+    product = Product.objects.get(pk = product_id)
+    if product.onSale is True:
+        product.onSale = False
+        product.save()
+    else:
+        product.onSale = True
+        product.save()
+    return redirect('detail', product_id)
+
+
 def follow(request, product_id, user_id):
     user = request.user
     followed_user = get_object_or_404(User, pk=user_id)
