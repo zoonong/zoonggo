@@ -12,6 +12,7 @@ class Product(models.Model):
     discription = models.TextField()
     keyword = models.CharField(max_length=200)
     image = models.ImageField(upload_to = "product/", blank=True, null=True)
+    onSale = models.BooleanField(default=True)
 
 
 class Profile(models.Model):
