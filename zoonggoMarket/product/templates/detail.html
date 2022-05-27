@@ -2,26 +2,84 @@
 {% load static %}
 
 {% block content %}
-    <h1>detail page</h1>
-    <h2>{{product.name}}</h2>
-    <h3>{{product.writer}}</h3>
-    {% if request.user != product.writer %}
-        {% if request.user.profile in product.writer.profile.followers.all %}
-            <a href="{%url 'follow' product.id product.writer.id%}">언팔로우</a>
-        {% else %}
-            <a href="{%url 'follow' product.id product.writer.id%}">팔로우</a>
-        {% endif %}
-    {% endif %}
-    <h4>{{product.pub_date}}</h4>
-    <h3>{{product.keyword}}</h3>
-    {% if product.image %}
-        <p><img src="{{product.image.url}}" alt="사진"></p>
-    {% endif %}
-    <p>{{product.discription}}</p>
+<h2 style="margin-top: 30px; margin-left: 27px; margin-bottom: 20px;">상품 상세페이지</h2>
 
-    {% if user == product.writer %}
-        <a href="{% url 'edit' product.id %}">수정하기</a>
-        <a href="{% url 'delete' product.id %}">삭제하기</a>
-    {% endif %}
+<div class="container">
+    <div class="clearfix">
+        <div style="float: left; width: 45%;">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="사진" class="col-md-6 float-md mb-3 ms-md-3 img-thumbnail shadows"
+                alt="..." style="height: 32rem; object-fit:cover; width: 32rem;">
+            {% endif %}
 
+            <div class="card-body" style="clear: both; text-align: center;">
+            {% if user.is_authenticated %}
+                {% if user == product.writer %}
+                <!-- 판매완료 버튼 클릭 시, 텍스트는 판매 중, 판매현황에서 판매 완료로 변경해야한다.-->
+                    {% if product.onSale == True%}
+                        <a type="button" class="btn btn-dark" style="font-weight: bold; border-radius: 12px;" href="{%url 'onsale' product.id%}">판매완료</a>
+                    {% else %}
+                        <a type="button" class="btn btn-light" style="font-weight: bold; border-radius: 12px; border-style: solid; border-color: black;" href="{%url 'onsale' product.id%}">판매중</a>
+                    {% endif %}
+                    <a href="{% url 'edit' product.id %}" class="btn btn-dark"
+                        style="font-weight: bold; border-radius: 12px; ">수정하기</a>
+                    <a href="{% url 'delete' product.id %}" class="btn btn-light"
+                        style="border-radius: 12px; font-weight: bold; border-style: solid; border-color: black;">삭제하기</a>
+                {% else %}
+                    <div class="p-2 bg-light border"
+                        style="margin-bottom: 10px; height: 80px; font-weight: bold; display: flex; align-items: center; font-size: 20px; display:flex; margin-right: 15px;">
+                        {{product.writer}} <!--다른 유저의 상품 상세페이지-->
+                        {% if request.user != product.writer %}
+                            {% if request.user.profile in product.writer.profile.followers.all %}
+                                <a type = "button" class = "btn btn-dark" href="{%url 'follow' product.id product.writer.id%}" style="margin-left: auto; font-weight: bold; border-style: solid; border-radius: 12px; border-color: white;">언팔로우</a>
+                            {% else %}
+                                <a type = "button" class = "btn btn-light" href="{%url 'follow' product.id product.writer.id%}" style="margin-left: auto; font-weight: bold; border-style: solid; border-radius: 12px; border-color: black;">팔로우</a>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <p style=" font-weight: bolder" >로그인 후 상품 구매가 가능합니다.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="d-grid gap-3" style="margin-left: 20px; float:left; width : 50%; display: flex;">
+            <div
+                style="margin-bottom: 8px; height: 60px; font-weight: bold; display: flex; align-items: center; font-size: 20px; border-style: solid; border-color: gray;">
+                <p style="margin-left: 10px; margin-top: 12px;">상품명 : {{product.name}}</p>
+            </div>
+            <div
+                style="margin-bottom: 8px; height: 60px; font-weight: bold; display: flex; align-items: center; font-size: 20px; border-style: solid; border-color: gray;">
+                <p style="margin-left: 10px; margin-top: 12px;">판매자 : {{product.writer}}</p>
+            </div>
+            <div
+                style="margin-bottom: 8px; height: 60px; font-weight: bold; display: flex; align-items: center; font-size: 20px; border-style: solid; border-color: gray;">
+                <p style="margin-left: 10px; margin-top: 12px;">키워드 : {{product.keyword}}</p>
+            </div>
+            <div
+                style="margin-bottom: 8px; height: 60px; font-weight: bold; display: flex; align-items: center; font-size: 20px; border-style: solid; border-color: gray;">
+                <p style="margin-left: 10px; margin-top: 12px;">작성날짜 : {{product.pub_date}}</p>
+            </div>
+            <div
+                style="margin-bottom: 8px; height: 200px; font-weight: bold; display: flex; align-items: center; font-size: 20px; border-style: solid; border-color: gray;">
+                <p style="margin-left: 10px;">상세 설명 : {{product.discription}} </p>
+            </div>
+            <div
+                style="margin-bottom: 8px; height: 60px; font-weight: bold; display: flex; align-items: center; font-size: 20px; border-style: solid; border-color: gray; display:flex">
+                <span style="margin-left: 10px; ">판매 현황</span>
+                {% if product.onSale == True %}
+                    <button class="btn btn-light"
+                        style="font-weight: bold; border-style: solid; border-radius: 12px; border-color: black; margin-left: auto; margin-right: 10px;">판매중</button>
+                {% else %}
+                <button class="btn btn-dark"
+                    style="font-weight: bold; border-radius: 12px; margin-left: auto; margin-right: 10px;">판매완료</button>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <hr>
+    </div>
+    <hr>
+</div>
 {% endblock %}

@@ -45,6 +45,17 @@ def delete(request, product_id):
     delete_product.delete()
     return redirect('homepage')
 
+def onsale(request, product_id):
+    product = Product.objects.get(pk = product_id)
+    if product.onSale is True:
+        product.onSale = False
+        product.save()
+    else:
+        product.onSale = True
+        product.save()
+    return redirect('detail', product_id)
+
+
 def follow(request, product_id, user_id):
     user = request.user
     followed_user = get_object_or_404(User, pk=user_id)
@@ -65,3 +76,14 @@ def followingProduct(request):
         productList.append(list_of_product)
     productLists = sum(productList, [])
     return render(request, 'followingProduct.html', {'products':productLists})
+
+def search(request):
+    products = Product.objects.all().order_by('-pub_date')
+    word = request.POST.get('word', "")
+
+    if word:
+        products = products.filter(keyword__icontains=word)
+        return render(request, 'search.html', {'products' : products, 'word':word})
+
+    else:
+        return render(request, 'search.html')
