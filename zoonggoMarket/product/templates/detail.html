@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-<h2 style="margin-top: 30px; margin-left: 27px; margin-bottom: 20px;">상품 상세페이지</h2>
+<h2 style="margin-top: 30px; margin-left: 27px; margin-bottom: 20px; font-family: 'ONE-Mobile-POP';">상품 상세페이지</h2>
 
-<div class="container">
+<div class="container" style="font-family: 'LeeSeoyun';">
     <div class="clearfix">
         <div style="float: left; width: 45%;">
             {% if product.image %}
@@ -25,7 +25,7 @@
                     {% endif %}
                     <a href="{% url 'edit' product.id %}" class="btn btn-dark"
                         style="font-weight: bold; border-radius: 12px; ">수정하기</a>
-                    <a href="{% url 'delete' product.id %}" class="btn btn-light"
+                    <a href="{% url 'delete' product.id %}" class="btn btn-outline-dark"
                         style="border-radius: 12px; font-weight: bold; border-style: solid; border-color: black;">삭제하기</a>
                 {% else %}
                     <div class="p-2 bg-light border"

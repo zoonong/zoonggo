@@ -3,12 +3,12 @@
 
 {% block content %}
   
-    <h2 style="margin-top: 30px; margin-left: 20px;">최신상품목록</h2>
+    <h2 style="margin-top: 30px; margin-left: 20px; font-family: 'ONE-Mobile-POP';">최신상품목록</h2>
     <br>
     <div class="row">
         {% if products %}
             {% for product in products %}
-                <div class="card shadows" style="width: 18rem; height: 29rem; align-items: center; margin-left: 2rem; margin-bottom: 2rem; border-style: solid; border-color: black; border-radius: 12px;">
+                <div class="card customCard" style="font-family: 'LeeSeoyun';">
                     <div style="width:17rem; height:20rem; align-items: center; margin-top: 20px; object-fit: cover;">
                         <a href="{%url 'detail' product.id %}">
                             <div style="width:16rem; height: 14rem; position: relative; align-items: center;">
@@ -34,12 +34,12 @@
                             </div>
                         </div>
                     <hr>
-                    <a href="{%url 'detail' product.id %}" class="btn btn-light" style = "font-weight: bold; border-radius: 12px; border: 2px ridge #BABABA; margin: auto; display:block;" >상세 페이지 이동</a>
+                    <a href="{%url 'detail' product.id %}" class="btn btn-outline-dark" style = "font-weight: bold; border-radius: 12px; border: 2px ridge #BABABA; margin: auto; display:block;" >상세 페이지 이동</a>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            <h3 style="text-align: center;"> 판매중인 상품이 없습니다. </h3>    
+            <h3 style="text-align: center; font-family: 'LeeSeoyun';"> 판매중인 상품이 없습니다. </h3>    
         {% endif %}
         <hr>
         <div style="text-align: center;">
