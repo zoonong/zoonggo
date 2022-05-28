@@ -1,0 +1,41 @@
+.customCard {
+    width: 18rem;
+    height: 29rem;
+    align-items: center;
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+    border-style: solid;
+    border-color: black;
+    border-radius: 12px;
+    border-width: medium;
+    box-shadow: 0 1px 20px 0 rgba(0,0, 0, 0.3);
+}
+
+.loginBox {
+    box-shadow: 0 1px 20px 0 rgba(0,0, 0, 0.3);
+    max-width: 25rem;
+    border-radius: 20px;
+    align-items: center;
+    border-width: medium;
+}
+
+@font-face {
+    font-family: 'ONE-Mobile-POP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LeeSeoyun';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'yg-jalnan';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
