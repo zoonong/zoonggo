@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def homepage(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('-pub_date')
     return render(request, 'home.html',{'products':products})
 
 def detail(request,product_id):
@@ -21,7 +21,8 @@ def create(request):
     new_product.name = request.POST['name']
     new_product.discription = request.POST['discription']
     new_product.keyword = request.POST['keyword']
-    new_product.image = request.FILES['image']
+    if request.FILES.get("image"):
+        new_product.image = request.FILES['image']
     new_product.save()
     return redirect('detail', new_product.id)
 
@@ -75,6 +76,7 @@ def followingProduct(request):
         list_of_product = products[::1]
         productList.append(list_of_product)
     productLists = sum(productList, [])
+    productLists.reverse()
     return render(request, 'followingProduct.html', {'products':productLists})
 
 def search(request):

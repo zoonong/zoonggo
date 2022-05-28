@@ -8,10 +8,12 @@
     <div class="clearfix">
         <div style="float: left; width: 45%;">
             {% if product.image %}
-            <img src="{{ product.image.url }}" alt="사진" class="col-md-6 float-md mb-3 ms-md-3 img-thumbnail shadows"
-                alt="..." style="height: 32rem; object-fit:cover; width: 32rem;">
+                <img src="{{ product.image.url }}" alt="사진" class="col-md-6 float-md mb-3 ms-md-3 img-thumbnail shadows"
+                    alt="..." style="height: 32rem; object-fit:cover; width: 32rem;">
+            {% else %}
+                <img src="{% static 'images/noImage.png' %}" alt="사진" class="col-md-6 float-md mb-3 ms-md-3 img-thumbnail shadows"
+                    alt="..." style="height: 32rem; object-fit:cover; width: 32rem;">
             {% endif %}
-
             <div class="card-body" style="clear: both; text-align: center;">
             {% if user.is_authenticated %}
                 {% if user == product.writer %}
