@@ -41,5 +41,36 @@
         {% else %}
             <h3 style="text-align: center;"> 판매중인 상품이 없습니다. </h3>    
         {% endif %}
+        <hr>
+        <div style="text-align: center;">
+            <div class="pagination" style="display: flex;">
+                <div style="width: 35%; margin: 5px;">
+                    {% if products.has_previous %}
+                        <a type="button" class="btn btn-outline-dark btn-sm" href="?page=1">맨 앞으로</a>
+                        <a type="button" class="btn btn-outline-dark btn-sm" href="?page={{ products.previous_page_number }}">이전</a>
+                    {% endif %}
+                </div>
+
+                <div style="width:30%; margin: 5px;">
+                    {% for page in products.paginator.page_range %}
+                        {% if page >= products.number|add:-4 and page <= products.number|add:4 %}
+                        <span class="btn btn-outline-dark btn-sm {% if page == products.number %}current{% endif %}">
+                            <a type="button" href="?page={{ page }}" style="text-decoration: none; color: black;">{{page}}</a>
+                        </span>
+                        {% elif page >= products.number|add:-3 and page <= product_list.number|add:3 %}
+                            ..
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+    
+                    <div style="width:35%; margin: 5px; text-align: left;">
+                    {% if products.has_next %}
+                        <a type="button" class="btn btn-outline-dark btn-sm" href="?page={{ products.next_page_number }}">다음</a>
+                        <a type="button" class="btn btn-outline-dark btn-sm" href="?page={{ products.paginator.num_pages }}">맨 뒤로</a>
+                    {% endif %}
+                    </div>
+            </div>
+
+        </div>
     </div>
 {% endblock %}

@@ -1,12 +1,17 @@
+from itertools import product
 from django.shortcuts import redirect, render,get_object_or_404
 from .models import Product
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 def homepage(request):
     products = Product.objects.all().order_by('-pub_date')
-    return render(request, 'home.html',{'products':products})
+    paginator = Paginator(products,8)
+    page = int(request.GET.get('page',1))
+    product_list = paginator.get_page(page)
+    return render(request, 'home.html',{'products':product_list})
 
 def detail(request,product_id):
     product = get_object_or_404(Product, pk = product_id)
@@ -77,15 +82,24 @@ def followingProduct(request):
         productList.append(list_of_product)
     productLists = sum(productList, [])
     productLists.reverse()
-    return render(request, 'followingProduct.html', {'products':productLists})
+    paginator = Paginator(productLists,8)
+    page = int(request.GET.get('page',1))
+    product_list = paginator.get_page(page)
+    return render(request, 'followingProduct.html', {'products':product_list})
 
 def search(request):
-    products = Product.objects.all().order_by('-pub_date')
     word = request.POST.get('word', "")
-
     if word:
-        products = products.filter(keyword__icontains=word)
-        return render(request, 'search.html', {'products' : products, 'word':word})
-
+        products = Product.objects.filter(keyword__icontains=word).order_by('-pub_date')
+        return render(request, 'search.html', {'products':products, 'word':word})
     else:
         return render(request, 'search.html')
+    # word = request.POST.get('word', "")
+    # if word:
+    #     products = Product.objects.filter(keyword__icontains=word).order_by('-pub_date')
+    #     paginator = Paginator(products,8)
+    #     page = int(request.GET.get('page',1))
+    #     product_list = paginator.get_page(page)
+    #     return render(request, 'search.html', {'products' : product_list, 'word':word})
+    # else:
+    #     return render(request, 'search.html')
