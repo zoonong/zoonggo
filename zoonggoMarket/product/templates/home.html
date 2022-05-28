@@ -18,8 +18,7 @@
                                         <button style="background-color : white; position: absolute; margin-top : 5px; margin-left: 172px; color:black; border-radius: 12px; width:85px; border-style: solid; border-color: black;">판매중</button>
                                     {% else %}
                                         <button style="background-color : black; position: absolute; margin-top : 5px; margin-left: 172px; color:white; border-radius: 12px; width:85px">판매완료</button>
-                                    {% endif %}
-                                    
+                                    {% endif %}   
                                 </div>
                             {% else %}
                                 <img src="{% static 'images/noImage.png' %}" class="card-img-top" alt="...">
@@ -35,7 +34,6 @@
                             </div>
                         </div>
                     <hr>
-                    
                     <a href="{%url 'detail' product.id %}" class="btn btn-light" style = "font-weight: bold; border-radius: 12px; border: 2px ridge #BABABA; margin: auto; display:block;" >상세 페이지 이동</a>
                     </div>
                 </div>
@@ -44,6 +42,4 @@
             <h3 style="text-align: center;"> 판매중인 상품이 없습니다. </h3>    
         {% endif %}
     </div>
-
-    
 {% endblock %}

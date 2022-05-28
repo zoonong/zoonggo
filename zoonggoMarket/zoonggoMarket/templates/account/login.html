@@ -7,8 +7,11 @@
 
 {% block content %}
 
-<h1>{% trans "Sign In" %}</h1>
-
+<div class="row justify-content-around" style="margin-top: 100px;">
+  <div class="card border-dark mb-3" style="max-width: 25rem; border-radius: 20px; align-items: center; ">
+    <div style="margin-top: 30px;">
+      <h3 style="font-weight: bold; margin-bottom: 20px;">{% trans "Sign In" %}</h3>
+    </div>
 {% get_providers as socialaccount_providers %}
 
 {% if socialaccount_providers %}
@@ -21,26 +24,46 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
   <ul class="socialaccount_providers">
     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
   </ul>
-
   <div class="login-or">{% trans 'or' %}</div>
-
 </div>
-
 {% include "socialaccount/snippets/login_extra.html" %}
 
 {% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+<p style="font-weight: bold; margin-bottom: -5px;">계정이 없다면 회원가입을 진행하세요.</p>
 {% endif %}
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  <p>
+    <div>
+      <label for="id_login" style="font-weight: bold;">ID</label>
+    </div>
+    <div>
+      <input type="text" name="login" placeholder="아이디" autocomplete="username" maxlength="150" required id = "id_login" style = "width :300px; ">
+    </div>
+  </p>
+  <p>
+    <div>
+      <label for="id_password" style="font-weight: bold; margin-top: 10px;">비밀번호</label>
+    </div>
+    <div>
+      <input type="password" name = "password" placeholder="비밀번호" autocomplete="current-password" required id = "id_password" style = "width :300px;">
+    </div>
+  </p>
+  
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+  <div>
+    <button class="primaryAction btn btn-dark" type="submit" style="border-radius: 20px; font-weight: bold; width: 90px; margin-left: 105px; margin-top : 20px; margin-bottom: 8px;">{% trans "Sign In" %}</button>
+  </div>
+  <div>
+    <a href="{{ signup_url }}" class="btn btn-dark" style="border-radius : 20px; font-weight: bold; width: 90px; margin-left: 105px; margin-bottom: 20px;">회원가입</a>
+  </div>
+  
 </form>
+  </div>
+</div> 
 
 {% endblock %}
