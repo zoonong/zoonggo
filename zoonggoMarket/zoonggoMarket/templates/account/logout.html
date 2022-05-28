@@ -5,17 +5,20 @@
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Out" %}</h1>
+<div class="row justify-content-around" style="margin-top: 150px;">
+  <div class="card border-dark mb-3" style="max-width: 25rem; border-radius: 20px; align-items: center; ">
+    <div style="margin-top: 30px;">
+      <h3 style="font-weight: bold;">{% trans "Sign Out" %}</h3>
+    </div>
+    <p style="font-size: 20px; margin-top: 30px; margin-bottom: 30px;">{% trans 'Are you sure you want to sign out?' %}</p>
 
-<p>{% trans 'Are you sure you want to sign out?' %}</p>
-
-<form method="post" action="{% url 'account_logout' %}">
-  {% csrf_token %}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-  {% endif %}
-  <button type="submit">{% trans 'Sign Out' %}</button>
-</form>
-
-
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+      {% endif %}
+      <button type="submit" class="btn btn-dark" style="font-weight: bold; border-radius: 20px; margin-bottom: 30px;">{% trans 'Sign Out' %}</button>
+    </form>
+  </div>
+</div> 
 {% endblock %}
