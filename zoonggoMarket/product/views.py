@@ -46,11 +46,6 @@ def update(request,product_id):
     update_product.save()
     return redirect('detail', update_product.id)
 
-def delete(request, product_id):
-    delete_product = Product.objects.get(pk=product_id)
-    delete_product.delete()
-    return redirect('homepage')
-
 def onsale(request, product_id):
     product = Product.objects.get(pk = product_id)
     if product.onSale is True:

@@ -28,7 +28,6 @@ urlpatterns = [
     path('create/', views.create, name="create"),
     path('edit/<int:product_id>', views.edit, name="edit"),
     path('update/<int:product_id>', views.update, name="update"),
-    path('delete/<int:product_id>',views.delete, name="delete"),
     path('onsale/<int:product_id>', views.onsale, name="onsale"),
     path('accounts/',include('allauth.urls')),
     path('follow/<int:product_id>/<int:user_id>', views.follow, name="follow"),
