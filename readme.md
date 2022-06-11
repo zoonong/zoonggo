@@ -14,7 +14,7 @@ Django 프로젝트 실행 방법
 ### 를 순서대로 입력해줍니다.
 
 ## 3. 프로젝트 폴더 디렉토리(zoonggoMarket)로 이동
-    cd zoonggoMarcket
+    cd zoonggoMarket
 
 ## 4. 데이터 migration하기
     python manage.py makemigrations
